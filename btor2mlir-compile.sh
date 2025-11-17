@@ -87,13 +87,7 @@ btor2mlir-translate --mlir-to-llvmir "$mlir_opt" > "$ll"
 
 # Step 4: LLVM IR -> Executable
 echo "[4/4] Compiling LLVM IR → Executable..."
-if [[ -z "${BTOR2MLIR:-}" ]]; then
-  echo "Error: Environment variable BTOR2MLIR is not set."
-  echo "Please export BTOR2MLIR to point to your btor2mlir repository root."
-  exit 1
-fi
-
-clang++-14 -O3 btor2mlir-wrapper.cc "$ll" "$BTOR2MLIR/run/lib/libcex.a" -o "$exe"
+clang++ -O3 btor2mlir-wrapper.cc "$ll" "$(pwd)/run/lib/libcex.a" -o "$exe"
 
 echo "✅ Done. Generated in '$outdir':"
 echo "  $(basename "$mlir")"
