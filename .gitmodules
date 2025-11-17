@@ -1,0 +1,3 @@
+[submodule "btor2mlir"]
+	path = btor2mlir
+	url = https://github.com/zihan0822/btor2mlir
