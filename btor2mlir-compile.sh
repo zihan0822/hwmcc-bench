@@ -44,6 +44,7 @@ fi
 
 # Create output directory if needed
 mkdir -p "$outdir"
+BTOR2MLIR_PREFIX="$(pwd)/btor2mlir/build"
 
 # Extract base filename (no path, no extension)
 filename="$(basename "$input")"
@@ -57,11 +58,11 @@ exe="${outdir}/${base}"      # final executable
 
 # Step 1: BTOR -> MLIR
 echo "[1/4] Translating BTOR → MLIR..."
-btor2mlir-translate --import-btor "$input" > "$mlir"
+$BTOR2MLIR_PREFIX/bin/btor2mlir-translate --import-btor "$input" > "$mlir"
 
 # Step 2: Optimize MLIR
 echo "[2/4] Running MLIR optimizations..."
-btor2mlir-opt \
+$BTOR2MLIR_PREFIX/bin/btor2mlir-opt \
   --btor-liveness \
   --convert-btornd-to-llvm \
   --convert-btor-to-memref \
@@ -83,7 +84,7 @@ btor2mlir-opt \
 
 # Step 3: MLIR -> LLVM IR
 echo "[3/4] Translating MLIR → LLVM IR..."
-btor2mlir-translate --mlir-to-llvmir "$mlir_opt" > "$ll"
+$BTOR2MLIR_PREFIX/bin/btor2mlir-translate --mlir-to-llvmir "$mlir_opt" > "$ll"
 
 # Step 4: LLVM IR -> Executable
 echo "[4/4] Compiling LLVM IR → Executable..."

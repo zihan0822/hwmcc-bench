@@ -8,8 +8,8 @@ btor2mlir:
 	@mkdir -p btor2mlir/build
 	@cd btor2mlir/build && \
 	 cmake -G Ninja .. \
-    	-DCMAKE_C_COMPILER=$(LLVM)/bin/clang-14 \
-    	-DCMAKE_CXX_COMPILER=$(LLVM)/bin/clang++-14 \
+    	-DCMAKE_C_COMPILER=$(LLVM)/bin/clang \
+    	-DCMAKE_CXX_COMPILER=$(LLVM)/bin/clang++ \
     	-DMLIR_DIR=$(LLVM)/lib/cmake/mlir \
     	-DLLVM_DIR=$(LLVM)/lib/cmake/llvm \
     	-DCMAKE_BUILD_TYPE=RelWithDebInfo \
